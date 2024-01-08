@@ -2,9 +2,10 @@ import LayoutComponent from "./components/Layout";
 import { Icon } from '@iconify/react';
 import { useEffect, useState } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ScatterChart, Scatter,LabelList, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import RadialBarComponent from "./components/RadialBar";
-import { ReferenceDot } from "recharts";
+import ScatterChartComponent from "./components/ScatterChart";
+import BarChartComponent from "./components/BarChart";
+import HorizontalBarChartComponent from "./components/HorizontalBarChart";
 
 function App() {
   const [countries,setCountries] = useState(['Germany', 'Spain', 'Italy', 'France', 'Japan']); //Default countries to show initially
@@ -75,43 +76,16 @@ function App() {
 
   }
 
-  const BarCustomTooltip = ({ active, payload, type}) => {
-    if (active && payload && payload.length) {
-      const countryData = payload[0].payload; // The country name is in payload[0].payload.name
-      return (
-        <div style={{ backgroundColor: '#121212', padding: '5px', border: '1px solid #ccc', color:'white' }}>
-          <p className="font-semibold">{`${countryData.name}`}</p>
-          <p>{`${type}: ${payload[0].value}`}</p>
-        </div>
-      );
-    }
-  
-    return null;
-  };
-  const ScatterCustomTooltip = ({ active, payload}) => {
-    if (active) {
-      return (
-        <div style={{ background: '#121212', padding: '10px', color: 'white' }}>
-          <p className="font-semibold">{payload[0].payload.name}</p>
-          <p>Longitude: {payload[0].payload.capLong}</p>
-          <p>Latitude: {payload[0].payload.capLat}</p>
-        </div>
-      );
-    }
-  
-    return null;
-  };
-
   return (
     <div className="App">
       <div className="w-screen h-screen">
         <div className="w-full h-full">
           <LayoutComponent country={country} setCountry={setCountry} countries={countries} AddCountry={AddCountry}>
+
             <div className='main w-full h-full p-2 lg:p-5'>
             {
               !isPending && 
             <div className="w-full h-full flex justify-between lg:flex-col">
-              {/* flex-col w-1/4 h-full */}
              <div className="flex flex-col w-1/4 h-full lg:flex-row lg:w-full lg:h-fit items-center">
                 {countryData.map((item) => (
                   // style={{ maxWidth: '300px', width: '100%', maxHeight: 'fit-content', backgroundColor:`${item.fill}` }}
@@ -134,176 +108,33 @@ function App() {
 
               {/* Section 1 and 2*/}
               <div className="w-full flex-1 overflow-auto">
+                {/* Section 1 */}
                 <div className="flex flex-col overflow-auto lg:w-full lg:h-1/2  lg:flex-row items-center justify-between p-2">
-                {/* width="25%" height="100%" */}
-                  <ResponsiveContainer className="w-full h-1/5 lg:w-1/4 lg:h-full" style={{ backgroundColor: '#121212', borderRadius: '7px' }}>
-                  <BarChart
-                    data={countryData}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    
-                    <XAxis dataKey="name" tick={{ fill: 'white' }}/>
-                    <YAxis tick={{ fill: 'white' }} />
-                    <Tooltip content={<BarCustomTooltip type='Area'/>} />
-                    <Legend />
-                    <Bar 
-                    dataKey="area" 
-                    fill="#ffffff" 
-                   
-                    />
-                    <ReferenceDot
-                      x={0}  
-                      y={0}  
-                      r={5}
-                      isFront
-                      alwaysShow={false}
-                    />
-                  </BarChart>
-                  </ResponsiveContainer>
-                  {/* width="45%" height="100%" */}
-                  <ResponsiveContainer  className="w-full h-1/5 lg:w-1/4 lg:h-full" >
-                  <BarChart
-                    data={countryData}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    
-                    <XAxis dataKey="name" tick={{ fill: 'white' }}/>
-                    <YAxis tick={{ fill: 'white' }}/>
-                    <Tooltip content={<BarCustomTooltip type='Population'/>} />
-                    <Legend />
-                    <Bar dataKey="population" fill="#ffffff" />
-                    <ReferenceDot
-                      x={0}  
-                      y={0}  
-                      r={5}
-                      isFront
-                      alwaysShow={false}
-                    />
-                  </BarChart>
-
                 
-                </ResponsiveContainer>
+                  <BarChartComponent style={{ backgroundColor: '#121212', borderRadius: '7px' }} xDataKey='name' yDataKey='' type='Area' dataKey='area' countryData={countryData}/>
 
-                <RadialBarComponent countryData={countryData}></RadialBarComponent>
-    
-                  
-                  
+                  <RadialBarComponent countryData={countryData}></RadialBarComponent>
+
+                  <BarChartComponent  style={{ backgroundColor: '#121212', borderRadius: '7px' }} xDataKey='name' yDataKey='' type='Population' dataKey='population' countryData={countryData}/>
+
                 </div>
 
                 {/* Section 2 */}
                 <div className="flex flex-col overflow-auto lg:w-full lg:h-1/2  lg:flex-row items-center justify-between p-2">
-                   {/* width="32%" height="100%"  */}
-                  <ResponsiveContainer  className="w-full h-1/5 lg:w-1/4 lg:h-full">
-                    <BarChart
-                      data={countryData}
-                      layout="vertical" 
-                      margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                      }}
-                    >
-                      
-                      <XAxis type="number" tick={{ fill: 'white' }} domain={[0, 5]} />
-                      <YAxis dataKey="name" type="category" tick={{ fill: 'white' }} />
-                      <Tooltip content={<BarCustomTooltip type='Languages' />} />
-                      <Legend />
-                      <Bar dataKey="lang" fill="#ffffff" />
-                      <ReferenceDot
-                      x={0}  
-                      y={0}  
-                      r={5}
-                      isFront
-                      alwaysShow={false}
-                    />
-                    </BarChart>
-                  </ResponsiveContainer>
-
-                  {/* width="32%" height="100%" */}
-                  <ResponsiveContainer  className="w-full h-1/5 lg:w-1/4 lg:h-full" style={{ backgroundColor: '#121212', borderRadius: '7px' }}>
-                  <BarChart
-                    
-                    data={countryData}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    
-                    <XAxis dataKey="name" tick={{ fill: 'white' }}/>
-                    <YAxis tick={{ fill: 'white' }}/>
-                    <Tooltip content={<BarCustomTooltip type='Timezones'/>} />
-                    <Legend />
-                    <Bar dataKey="timezones" fill="#ffffff"/>
-                    <ReferenceDot
-                      x={0}  
-                      y={0}  
-                      r={5}
-                      isFront
-                      alwaysShow={false}
-                    />
-                  </BarChart>
-
-                
-                </ResponsiveContainer>
-                {/* width="32%" height="100%" */}
-                <ResponsiveContainer   className="w-full h-1/5 lg:w-1/4 lg:h-full"> 
-                    <ScatterChart
-                      margin={{
-                        top: 20,
-                        right: 20,
-                        bottom: 20,
-                        left: 20,
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="1 1" />
-                      <YAxis tick={{ fill: 'white' }} type="number" dataKey="capLat" name="Latitude" unit={`${'\u00B0'}`}  label={{ value: 'Latitude', angle: -90, position: 'insideLeft', color: 'white', fontSize: 16}}/>
-                      <XAxis tick={{ fill: 'white' }} type="number" dataKey="capLong" name="Longitude"  unit={`${'\u00B0'}`}  label={{ value: 'Longitude', position: 'insideBottom', offset: -5, color: 'white',  fontSize: 16}} />
-                      <Tooltip cursor={{ strokeDasharray: '3 3' }} content={<ScatterCustomTooltip/>} />
-                      <Scatter 
-                      name="GeoLocation" 
-                      data={countryData} 
-                       
-                      shape={({ cx, cy, payload }) => (
-                        <circle cx={cx} cy={cy} r={2} fill={payload.fill} strokeWidth={2} />
-                      )}
-                      >
-                        <LabelList dataKey="cioc" position="top"/>
-                      </Scatter>
-                    </ScatterChart>
-
-                
-                </ResponsiveContainer>
-    
-    
                   
-                  
+                  <HorizontalBarChartComponent xDataKey='' yDataKey='name' type='Languages' dataKey='lang' countryData={countryData}/>
+    
+                  <BarChartComponent style={{ backgroundColor: '#121212', borderRadius: '7px' }} xDataKey='name' yDataKey='' type='Timezones' dataKey='timezones' countryData={countryData}/>
+
+                  <ScatterChartComponent countryData={countryData}/>
+               
                 </div>
 
               </div>
-             
-
-             
-              
-
+    
             </div>
             }
       
-          
-            
            </div>
           </LayoutComponent>
 

@@ -19,7 +19,7 @@ const LayoutComponent = ({children, country, setCountry, countries, AddCountry})
                   onKeyDown={(e)=>{
                     if(e.key === 'Enter')
                     {
-                      // SearchCountry();
+                      
                       if(countries.includes(country))
                       {
                         alert("Country already exists");
@@ -39,7 +39,6 @@ const LayoutComponent = ({children, country, setCountry, countries, AddCountry})
             </div>
  
       </div>
-      {/* overflow auto was here */}
       <div className='content w-full h-9/10 bg-black overflow-auto'>  
            {children}
       </div>

@@ -7,7 +7,7 @@ const RadialBarComponent = ({countryData}) => {
 
     const style = {
         top: '50%',
-        right: 0,
+        right: '10%',
         transform: 'translate(0, -50%)',
         lineHeight: '24px',
       };
@@ -27,7 +27,7 @@ const RadialBarComponent = ({countryData}) => {
       };
   return (
     // width="25%" height="100%"
-    <ResponsiveContainer  className="w-full h-1/5 lg:w-1/4 lg:h-full" style={{ backgroundColor: '#121212', borderRadius: '7px' }}>
+    <ResponsiveContainer  className="w-full h-1/5 lg:w-1/4 lg:h-full">
                  
         <RadialBarChart cx="50%" cy="50%" innerRadius="10%" outerRadius="80%" barSize={8} data={countryData}>
           <RadialBar
