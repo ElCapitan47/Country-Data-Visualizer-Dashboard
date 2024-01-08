@@ -19,7 +19,7 @@ const ScatterChartComponent = ({countryData}) => {
         };
 
   return (
-    <ResponsiveContainer   className="w-full h-1/5 lg:w-1/4 lg:h-full"> 
+    <ResponsiveContainer  className="w-full h-full lg:w-1/4 lg:h-full"> 
         <ScatterChart
         margin={{
             top: 20,

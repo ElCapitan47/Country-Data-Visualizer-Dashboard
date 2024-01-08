@@ -107,24 +107,26 @@ function App() {
               </div>
 
               {/* Section 1 and 2*/}
-              <div className="w-full flex-1 overflow-auto">
+              <div className="w-full flex  flex-col lg:flex-1 overflow-auto">
                 {/* Section 1 */}
-                <div className="flex flex-col overflow-auto lg:w-full lg:h-1/2  lg:flex-row items-center justify-between p-2">
                 
-                  <BarChartComponent style={{ backgroundColor: '#121212', borderRadius: '7px' }} xDataKey='name' yDataKey='' type='Area' dataKey='area' countryData={countryData}/>
+                <div className="flex flex-col w-full h-full lg:w-full lg:h-1/2  lg:flex-row items-center justify-between p-2">
+                
+                  <BarChartComponent style={{ backgroundColor: '#121212', borderRadius: '7px'}} xDataKey='name' yDataKey='' type='Area' dataKey='area' countryData={countryData}/>
 
                   <RadialBarComponent countryData={countryData}></RadialBarComponent>
 
-                  <BarChartComponent  style={{ backgroundColor: '#121212', borderRadius: '7px' }} xDataKey='name' yDataKey='' type='Population' dataKey='population' countryData={countryData}/>
+                  <BarChartComponent  style={{ backgroundColor: '#121212', borderRadius: '7px'}} xDataKey='name' yDataKey='' type='Population' dataKey='population' countryData={countryData}/>
 
                 </div>
 
                 {/* Section 2 */}
-                <div className="flex flex-col overflow-auto lg:w-full lg:h-1/2  lg:flex-row items-center justify-between p-2">
+                
+                <div className="flex flex-col w-full h-full lg:w-full lg:h-1/2  lg:flex-row items-center justify-between p-2">
                   
                   <HorizontalBarChartComponent xDataKey='' yDataKey='name' type='Languages' dataKey='lang' countryData={countryData}/>
     
-                  <BarChartComponent style={{ backgroundColor: '#121212', borderRadius: '7px' }} xDataKey='name' yDataKey='' type='Timezones' dataKey='timezones' countryData={countryData}/>
+                  <BarChartComponent style={{ backgroundColor: '#121212', borderRadius: '7px'}} xDataKey='name' yDataKey='' type='Timezones' dataKey='timezones' countryData={countryData}/>
 
                   <ScatterChartComponent countryData={countryData}/>
                
