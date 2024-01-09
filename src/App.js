@@ -12,9 +12,6 @@ function App() {
   const [countryData, setCountryData] = useState([]);
   const [isPending, setIsPending] = useState(true);
   const colors = [ '#29AB87', '#01796F', '#008080','#30BFBF', '#0C99BA','#1164B5', '#004F98', '#003152'];
-  useEffect(() => {
-    console.log(countryData);
-  }, [countryData]);
   
   useEffect(() => {
     const getData = async () => {
@@ -57,22 +54,33 @@ function App() {
   
   const [country, setCountry]= useState("");
   
+  const SearchCountry=async()=>{
+    const res= await fetch(`https://restcountries.com/v3.1/name/${country}?fullText=true`);
+    const formattedRes= await res.json();
+    console.log(formattedRes);
+    if(res.status === 404)
+    {
+      return alert("No such country exists. Try modifying your search");
+    }
+    else
+    {
+      AddCountry();
+    }
+
+  }
 
   const AddCountry= ()=>{
     setCountries([...countries,country]);
   }
 
   const DeleteCountry=(name)=>{
-    console.log(name);
-    console.log(countries);
     const indexToDelete= countries.indexOf(name);
-    console.log(indexToDelete);
     if (indexToDelete !== -1) {
       const newCountries = [...countries];
       newCountries.splice(indexToDelete, 1);
       setCountries(newCountries);
     }
-    console.log(countries);
+    
 
   }
 
@@ -80,7 +88,7 @@ function App() {
     <div className="App">
       <div className="w-screen h-screen">
         <div className="w-full h-full">
-          <LayoutComponent country={country} setCountry={setCountry} countries={countries} AddCountry={AddCountry}>
+          <LayoutComponent country={country} setCountry={setCountry} countries={countries} SearchCountry={SearchCountry}>
 
             <div className='main w-full h-full p-2 lg:p-5'>
             {
@@ -107,7 +115,7 @@ function App() {
               </div>
 
               {/* Section 1 and 2*/}
-              <div className="w-full flex  flex-col lg:flex-1 overflow-auto">
+              <div className="w-full h-full flex flex-col lg:flex-1 overflow-auto">
                 {/* Section 1 */}
                 
                 <div className="flex flex-col w-full h-full lg:w-full lg:h-1/2  lg:flex-row items-center justify-between p-2">

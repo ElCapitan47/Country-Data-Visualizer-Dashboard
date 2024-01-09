@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon } from '@iconify/react';
 
 
-const LayoutComponent = ({children, country, setCountry, countries, AddCountry}) => {
+const LayoutComponent = ({children, country, setCountry, countries, SearchCountry}) => {
   return (
     <div className='w-full h-full'>
       {/* Navbar */}
@@ -26,7 +26,7 @@ const LayoutComponent = ({children, country, setCountry, countries, AddCountry})
                       }
                       else
                       {
-                        AddCountry();
+                        SearchCountry();
                       }
                       
                     }

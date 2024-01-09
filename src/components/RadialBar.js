@@ -5,13 +5,13 @@ const RadialBarComponent = ({countryData}) => {
     // console.log(countryData);
    
 
-    const style = {
+      const style = {
         top: '50%',
         right: '10%',
         transform: 'translate(0, -50%)',
         lineHeight: '24px',
       };
-    
+        
       const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
           const countryData = payload[0].payload; 
