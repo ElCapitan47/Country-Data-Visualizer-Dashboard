@@ -64,13 +64,14 @@ function App() {
     }
     else
     {
-      AddCountry();
+      
+      AddCountry(formattedRes[0].name.common );
     }
 
   }
 
-  const AddCountry= ()=>{
-    setCountries([...countries,country]);
+  const AddCountry= (countryName)=>{
+    setCountries([...countries,countryName]);
   }
 
   const DeleteCountry=(name)=>{
